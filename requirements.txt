@@ -1,0 +1,16 @@
+asgiref
+Django
+django-cloudinary-storage
+django-cors-headers
+django-filter
+django-ratelimit
+djangorestframework
+djangorestframework-simplejwt
+drf-yasg
+gunicorn
+Pillow
+PyJWT
+pytz
+sqlparse
+psycopg2-binary
+python-dotenv
