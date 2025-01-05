@@ -1,31 +1,39 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.utils.timezone import now
 
-# Create your models here.
-class Category(models.Model):
-  title = models.CharField(max_length=255)
+# Base model for timestamps
+class TimestampedModel(models.Model):
+    created_at = models.DateTimeField(default=now) 
+    updated_at = models.DateTimeField(auto_now=True)
 
-  def __str__(self):
-    return self.title
-  
-class Partner(models.Model):
-  name = models.CharField(max_length=255)
-  image= models.ImageField(upload_to='partners/')
+    class Meta:
+        abstract = True  # This model will not be created in the database
 
-  def __str__(self):
-    return self.name
-  
+# Models
+class Category(TimestampedModel):
+    title = models.CharField(max_length=255)
 
-class Work(models.Model):
-  title = models.CharField(max_length=255)
-  category = models.ManyToManyField(Category, related_name="works")
-  partners = models.ManyToManyField(Partner, related_name="works")
-  image = models.ImageField(upload_to='works/')
+    def __str__(self):
+        return self.title
 
-  def __str__(self):
-    return self.title
-  
-class Talent(models.Model):
+class Partner(TimestampedModel):
+    name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='partners/')
+
+    def __str__(self):
+        return self.name
+
+class Work(TimestampedModel):
+    title = models.CharField(max_length=255)
+    category = models.ManyToManyField(Category, related_name="works")
+    partners = models.ManyToManyField(Partner, related_name="works")
+    image = models.ImageField(upload_to='works/')
+
+    def __str__(self):
+        return self.title
+
+class Talent(TimestampedModel):
     name = models.CharField(max_length=255)
     description = models.TextField()
     works = models.ManyToManyField(Work, related_name="talents")
@@ -44,7 +52,7 @@ class Talent(models.Model):
     def __str__(self):
         return self.name
 
-class Blog(models.Model):
+class Blog(TimestampedModel):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     description = models.TextField()
@@ -53,5 +61,3 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
-        
-
