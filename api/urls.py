@@ -3,7 +3,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from .views import (
-    TalentListView, TalentDetailView,
+    BookingCreateView, JobDetailView, JobListView, TalentListView, TalentDetailView,
     WorkListView, WorkDetailView,
     CategoryListView,
     PartnerListView,
@@ -41,6 +41,13 @@ urlpatterns = [
     # Blog
     path('blogs/', BlogListView.as_view(), name='blog-list'),
     path('blogs/<int:pk>/', BlogDetailView.as_view(), name='blog-detail'),
+
+    # Job
+    path('jobs/', JobListView.as_view(), name='job-list'),
+    path('jobs/<int:pk>/', JobDetailView.as_view(), name='job-detail'),
+
+    # Booking
+    path('bookings/', BookingCreateView.as_view(), name='booking-create'),
 
     # Swagger docs
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
