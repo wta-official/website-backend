@@ -8,7 +8,7 @@ from .filters import TalentFilter
 
 # List and Detail Views for each model
 class TalentListView(ListAPIView):
-    queryset = Talent.objects.all()
+    queryset = Talent.objects.all().order_by('-created_at')
     serializer_class = TalentSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = TalentFilter
@@ -47,7 +47,7 @@ class BlogListView(ListAPIView):
     ordering_fields = ['title', 'author']
 
 class BlogDetailView(RetrieveAPIView):
-    queryset = Booking.objects.all()
+    queryset = Blog.objects.all()
     serializer_class = BlogSerializer
 
 
