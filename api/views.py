@@ -47,7 +47,7 @@ class BlogListView(ListAPIView):
     ordering_fields = ['title', 'author']
 
 class BlogDetailView(RetrieveAPIView):
-    queryset = Booking.objects.select_related('talent')
+    queryset = Booking.objects.all()
     serializer_class = BlogSerializer
 
 
