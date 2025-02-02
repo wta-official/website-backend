@@ -166,6 +166,9 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOW_METHODS = ["GET", "POST", "OPTIONS", "PUT", "DELETE"]
+CORS_ALLOW_HEADERS = ["*"]
+
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv("CLOUDINARY_NAME"),
     'API_KEY': os.getenv("CLOUDINARY_API_KEY"),
