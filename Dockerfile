@@ -1,11 +1,11 @@
-# Use official Python slim image
+# Use official slim Python image
 FROM python:3.12-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Install system-level dependencies needed
+# Install system-level dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     libjpeg-dev \
@@ -17,26 +17,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Set working directory
 WORKDIR /app
 
-# Install latest pip, setuptools, wheel
+# Install pip tools
 RUN pip install --upgrade pip setuptools wheel
 
-# Copy only requirements first (to leverage Docker cache)
+# Copy requirements and install dependencies
 COPY requirements.txt .
-
-# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project files
+# Copy full project
 COPY . .
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
+# Copy and enable entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
-# (Optional) Auto-create superuser if needed
-# RUN python manage.py createsuperuser_with_defaults || true
-
-# Expose port 8000
+# Expose port for Gunicorn
 EXPOSE 8000
 
-# Run the application
-CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Launch entrypoint script at runtime
+ENTRYPOINT ["/app/entrypoint.sh"]
