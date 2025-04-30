@@ -9,6 +9,9 @@ from .views import (
     PartnerListView,
     BlogListView, BlogDetailView,
 )
+import os
+
+swagger_base_url = os.getenv("SWAGGER_BASE_URL", "http://localhost:8000")
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -21,6 +24,7 @@ schema_view = get_schema_view(
     ),
     public=True,
     permission_classes=[permissions.AllowAny],
+    url=swagger_base_url,
 )
 
 urlpatterns = [
