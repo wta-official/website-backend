@@ -23,13 +23,13 @@ class WorkDetailSerializer(ImageFieldMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Work
-        fields = ['id', 'title', 'category', 'partners', 'image', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'category', 'partners', 'image',  'created_at', 'updated_at']
 
 class TalentSummarySerializer(ImageFieldMixin, serializers.ModelSerializer):
     class Meta:
         model = Talent
         fields = [
-            'id', 'name', 'image', 'description', 'created_at'
+            'id', 'name', 'image', 'description', 'created_at', 'roles',
         ]
 
 class TalentDetailSerializer(ImageFieldMixin, serializers.ModelSerializer):

@@ -11,7 +11,7 @@ from .filters import TalentFilter
 from .pagination import StandardPagination
 
 class TalentListView(ListAPIView):
-    queryset = Talent.objects.only('id', 'name', 'image', 'description', 'created_at').order_by('-created_at')
+    queryset = Talent.objects.only('id', 'name', 'image', 'description', 'roles', 'created_at').order_by('-created_at')
     serializer_class = TalentSummarySerializer
     pagination_class = StandardPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
