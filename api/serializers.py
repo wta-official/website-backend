@@ -13,9 +13,10 @@ class PartnerSerializer(ImageFieldMixin, serializers.ModelSerializer):
         fields = ['id', 'name', 'image']
 
 class WorkSummarySerializer(ImageFieldMixin, serializers.ModelSerializer):
+    category = CategorySerializer(many=True)
     class Meta:
         model = Work
-        fields = ['id', 'title', 'image']
+        fields = ['id', 'title', 'image', 'category']
 
 class WorkDetailSerializer(ImageFieldMixin, serializers.ModelSerializer):
     category = CategorySerializer(many=True)
