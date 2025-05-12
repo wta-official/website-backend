@@ -29,11 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+ALLOWED_HOSTS = ["*"]
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -47,10 +45,6 @@ REST_FRAMEWORK = {
         'anon': '20/min',  
         'user': '1000/day', 
     },
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
-    ],
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
 
@@ -109,29 +103,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
-#     # 'default': {
-#     #     'ENGINE': 'django.db.backends.postgresql',
-#     #     'NAME': os.getenv("POSTGRES_DB"),
-#     #     'USER': os.getenv("POSTGRES_USER"),
-#     #     'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
-#     #     'HOST': os.getenv("POSTGRES_HOST"),
-#     #     'PORT': os.getenv("POSTGRES_PORT")
-#     # }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': os.getenv('MONGODB_NAME'),
-        'ENFORCE_SCHEMA': True,
-        'CLIENT': {
-            'host': os.getenv('MONGODB_URL'),
-        }
-    }
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': os.getenv("POSTGRES_DB"),
+    #     'USER': os.getenv("POSTGRES_USER"),
+    #     'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
+    #     'HOST': os.getenv("POSTGRES_HOST"),
+    #     'PORT': os.getenv("POSTGRES_PORT")
+    # }
 }
-
 
 
 # Password validation
@@ -183,22 +165,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
-
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-]
 
 CORS_ALLOW_METHODS = ["GET", "POST", "OPTIONS", "PUT", "DELETE"]
-
+CORS_ALLOW_HEADERS = ["*"]
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv("CLOUDINARY_NAME"),
