@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.forms import ValidationError
 from django.utils.timezone import now
+from markdownx.models import MarkdownxField
+
 
 # Base model for timestamps
 class JobLocation(models.TextChoices):
@@ -78,7 +80,7 @@ class Blog(TimestampedModel):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     description = models.TextField()
-    content = models.TextField()
+    content = MarkdownxField()  # ✅ Replace TextField with this
     image = models.ImageField()
 
     def __str__(self):

@@ -1,3 +1,4 @@
+from markdownx.admin import MarkdownxModelAdmin 
 from django.contrib import admin
 from .models import Blog, Booking, Category, Job, Partner, Talent, Work
 
@@ -26,8 +27,13 @@ class TalentAdmin(admin.ModelAdmin):
     filter_horizontal = ('works', 'partners',)
     list_filter = ('name', 'works')
 
+# @admin.register(Blog)
+# class BlogAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'author', 'created_at',)
+#     search_fields = ('title', 'author',)
+    
 @admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
+class BlogAdmin(MarkdownxModelAdmin):  # ✅ change inheritance
     list_display = ('title', 'author', 'created_at',)
     search_fields = ('title', 'author',)
 
